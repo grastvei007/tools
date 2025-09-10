@@ -1,54 +1,19 @@
 cmake_minimum_required(VERSION 3.16)
-project(tag)
+project(tools)
 
-set_target_properties(PROPERTIES DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}")
+set(MIN_QT_VERSION 6.9)
 
-include_directories($ENV{JUNE_ROOT})
-link_directories(${CMAKE_BINARY_DIR}/$<CONFIG>/lib)
-
-add_definitions(-DNO_GUI)
-
-set(CMAKE_INCLUDE_CURRENT_DIR "YES")
-set(CMAKE_AUTOMOC "YES")
-set(CMAKE_AUTOUIC "YES")
-
-find_package(Qt6 COMPONENTS WebSockets REQUIRED)
-find_package(Qt6 COMPONENTS Widgets REQUIRED)
-find_package(Qt6 COMPONENTS Gui REQUIRED)
-find_package(Qt6 COMPONENTS Core REQUIRED)
-find_package(Qt6 COMPONENTS HttpServer REQUIRED)
-find_package(Qt6 COMPONENTS Network REQUIRED)
-
-qt_add_executable(tag
-    tag/main.cpp
-    tag/app.h tag/app.cpp
-)
-
-
-target_link_libraries(tag PRIVATE Qt6::WebSockets
-    Qt6::Widgets
-    Qt6::Gui
-    Qt6::Core
-    Qt6::HttpServer
-    Qt6::Network)
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    message("Debug mode")
-    target_link_libraries(tag PRIVATE tagsystemd)
-    target_link_libraries(tag PRIVATE cored)
-else()
-    message("Release mode")
-    target_link_libraries(tag PRIVATE tagsystem)
-    target_link_libraries(tag PRIVATE core)
+if(NOT CMAKE_DEBUG_POSTFIX)
+  set(CMAKE_DEBUG_POSTFIX d)
 endif()
 
-target_include_directories(tag INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+qt_standard_project_setup()
 
-set_target_properties(tag
-    PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIG>/lib
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIG>/bin
-)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
+add_subdirectory(tag)
 
+add_dependencies(tag tagsystem)
