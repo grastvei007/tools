@@ -15,5 +15,7 @@ qt_standard_project_setup()
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(tag)
+add_subdirectory(rpigpio)
 
 add_dependencies(tag tagsystem)
+add_dependencies(rpigpio tagsystem)
