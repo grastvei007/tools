@@ -64,7 +64,7 @@ void App::createTag(const QString &subsystem,
     {
         qDebug() << "Type: " << type;
         auto tagType = Tag::typeFromString(type);
-        if(tagType == Tag::eUnknown)
+        if(tagType == TagType::eUnknown)
         {
             qDebug() << "Invalid tag type";
             exit();
