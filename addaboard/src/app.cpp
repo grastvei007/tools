@@ -8,6 +8,8 @@
 
 #include <string.h>
 
+#include <tagsystem/taglist.h>
+
 void Handler(int signo)
 {
 	//System Exit
@@ -20,6 +22,12 @@ void Handler(int signo)
 App::App(int argc, char *argv[])
 	: QCoreApplication(argc, argv)
 {
+	TagList::sGetInstance().setClientName("adc");
+	TagList::sGetInstance().connectToServer("localhost", 5000);
+	connect(&TagList::sGetInstance(), &TagList::connected, this, [this]() {
+		adc1Tag_ = TagList::sGetInstance().createTag("adda", "adc1", TagType::eDouble, 0.0);
+	});
+
 	printf("demo\r\n");
 	DEV_ModuleInit();
 
@@ -49,4 +57,7 @@ void App::read()
 		printf("%d %f\r\n", i, ADC[i] * 5.0 / 0x7fffff);
 	}
 	printf("\33[8A"); //Move the cursor up 8 lines
+
+	if (adc1Tag_)
+		adc1Tag_->setValue((double(ADC[1] * 5.0 / 0x7fffff)));
 }

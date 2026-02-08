@@ -4,6 +4,8 @@
 #include <QCoreApplication>
 #include <QTimer>
 
+#include <tagsystem/tag.h>
+
 class App : public QCoreApplication
 {
   public:
@@ -11,6 +13,9 @@ class App : public QCoreApplication
 
   protected slots:
 	void read();
+
+  private:
+	Tag *adc1Tag_ = nullptr;
 };
 
 #endif // APP_H
