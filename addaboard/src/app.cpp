@@ -20,7 +20,6 @@ void Handler(int signo)
 App::App(int argc, char *argv[])
 	: QCoreApplication(argc, argv)
 {
-	UDOUBLE ADC[8], i;
 	printf("demo\r\n");
 	DEV_ModuleInit();
 
@@ -34,25 +33,20 @@ App::App(int argc, char *argv[])
 		exit(0);
 	}
 
-	while (1)
-	{
-		// printf("0 : %f\r\n",ADS1256_GetChannalValue(0)*5.0/0x7fffff);
-		// printf("1 : %f\r\n",ADS1256_GetChannalValue(1)*5.0/0x7fffff);
-		// printf("2 : %f\r\n",ADS1256_GetChannalValue(2)*5.0/0x7fffff);
-		// printf("3 : %f\r\n",ADS1256_GetChannalValue(3)*5.0/0x7fffff);
-		// printf("4 : %f\r\n",ADS1256_GetChannalValue(4)*5.0/0x7fffff);
-		// printf("5 : %f\r\n",ADS1256_GetChannalValue(5)*5.0/0x7fffff);
-		// printf("6 : %f\r\n",ADS1256_GetChannalValue(6)*5.0/0x7fffff);
-		// printf("7 : %f\r\n",ADS1256_GetChannalValue(7)*5.0/0x7fffff);
-
-		ADS1256_GetAll(ADC);
-		for (i = 0; i < 8; i++)
-		{
-			printf("%d %f\r\n", i, ADC[i] * 5.0 / 0x7fffff);
-		}
-		printf("\33[8A"); //Move the cursor up 8 lines
-
-		DEV_Delay_ms(1000);
-	}
+	QTimer *timer = new QTimer(this);
+	timer->setInterval(1000);
+	connect(timer, &QTimer::timeout, this, &App::read);
+	timer->start();
 	//return 0;
+}
+
+void App::read()
+{
+	UDOUBLE ADC[8], i;
+	ADS1256_GetAll(ADC);
+	for (i = 0; i < 8; i++)
+	{
+		printf("%d %f\r\n", i, ADC[i] * 5.0 / 0x7fffff);
+	}
+	printf("\33[8A"); //Move the cursor up 8 lines
 }
