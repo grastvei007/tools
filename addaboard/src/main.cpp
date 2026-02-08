@@ -47,6 +47,8 @@ int main(void)
             printf("%d %f\r\n",i,ADC[i]*5.0/0x7fffff);
         }
         printf("\33[8A");//Move the cursor up 8 lines
-    }
+
+		DEV_Delay_ms(1000);
+	}
     return 0;
 }
