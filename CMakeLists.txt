@@ -16,6 +16,7 @@ qt_standard_project_setup()
 
 add_subdirectory(tag)
 add_subdirectory(rpigpio)
+add_subdirectory(addaboard)
 
 add_dependencies(tag tagsystem)
 add_dependencies(rpigpio tagsystem)
