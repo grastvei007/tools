@@ -31,6 +31,7 @@ qt_add_executable(addaboard_test
     src/Debug.h
     src/DEV_Config.cpp
     src/DEV_Config.h
+    src/app.h src/app.cpp
 
 )
 
