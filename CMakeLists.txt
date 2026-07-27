@@ -20,3 +20,4 @@ add_subdirectory(addaboard)
 
 add_dependencies(tag tagsystem)
 add_dependencies(rpigpio tagsystem)
+add_dependencies(addaboard tagsystem)

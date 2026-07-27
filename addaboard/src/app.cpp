@@ -25,14 +25,14 @@ App::App(int argc, char *argv[])
 	TagList::sGetInstance().setClientName("adc");
 	TagList::sGetInstance().connectToServer("localhost", 5000);
 	connect(&TagList::sGetInstance(), &TagList::connected, this, [this]() {
-		adc0Tag_ = TagList::sGetInstance().createTag("adda", "adc0", TagType::eDouble, 0.0);
-		adc1Tag_ = TagList::sGetInstance().createTag("adda", "adc1", TagType::eDouble, 0.0);
-		adc2Tag_ = TagList::sGetInstance().createTag("adda", "adc2", TagType::eDouble, 0.0);
-		adc3Tag_ = TagList::sGetInstance().createTag("adda", "adc3", TagType::eDouble, 0.0);
-		adc4Tag_ = TagList::sGetInstance().createTag("adda", "adc4", TagType::eDouble, 0.0);
-		adc5Tag_ = TagList::sGetInstance().createTag("adda", "adc5", TagType::eDouble, 0.0);
-		adc6Tag_ = TagList::sGetInstance().createTag("adda", "adc6", TagType::eDouble, 0.0);
-		adc7Tag_ = TagList::sGetInstance().createTag("adda", "adc7", TagType::eDouble, 0.0);
+		adc0Tag_ = TagList::sGetInstance().createTag("adda", "adc0", TagType::eDouble, 0.0, false);
+		adc1Tag_ = TagList::sGetInstance().createTag("adda", "adc1", TagType::eDouble, 0.0, false);
+		adc2Tag_ = TagList::sGetInstance().createTag("adda", "adc2", TagType::eDouble, 0.0, false);
+		adc3Tag_ = TagList::sGetInstance().createTag("adda", "adc3", TagType::eDouble, 0.0, false);
+		adc4Tag_ = TagList::sGetInstance().createTag("adda", "adc4", TagType::eDouble, 0.0, false);
+		adc5Tag_ = TagList::sGetInstance().createTag("adda", "adc5", TagType::eDouble, 0.0, false);
+		adc6Tag_ = TagList::sGetInstance().createTag("adda", "adc6", TagType::eDouble, 0.0, false);
+		adc7Tag_ = TagList::sGetInstance().createTag("adda", "adc7", TagType::eDouble, 0.0, false);
 	});
 
 	printf("demo\r\n");
